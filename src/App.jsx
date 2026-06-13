@@ -534,9 +534,9 @@ function App() {
     <div className={`site-shell ${protectedPage ? 'protected-catlyst' : 'kmc-experience'}`}>
       {!protectedPage && <a className="skip-link" href="#main-content">Skip to content</a>}
       {!protectedPage && <RouteMeta route={route} />}
-      <Header protectedPage={protectedPage} />
+      {!protectedPage && <Header />}
       <main id="main-content">{page}</main>
-      <Footer protectedPage={protectedPage} />
+      {!protectedPage && <Footer />}
     </div>
   )
 }
@@ -594,7 +594,7 @@ function getPage(route) {
   return <HomePage />
 }
 
-function Header({ protectedPage }) {
+function Header() {
   const [open, setOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState(null)
   const [scrolled, setScrolled] = useState(false)
@@ -635,11 +635,7 @@ function Header({ protectedPage }) {
       transition={{ duration: 0.62, ease }}
     >
       <a className="brand" href="#home" aria-label="Knight's Move Consulting home">
-        <picture>
-          <source srcSet={assetPath('kmc-logo-white.png')} media="(prefers-color-scheme: dark)" />
-          <source srcSet={assetPath('kmc-logo-light.png')} media="(prefers-color-scheme: light)" />
-          <img src={assetPath('kmc-logo-white.png')} alt="Knight's Move Consulting" />
-        </picture>
+        <img src={assetPath('kmc-logo-white.png')} alt="Knight's Move Consulting" />
       </a>
       <nav className="desktop-nav" aria-label="Primary navigation">
         {navGroups.map((item) => (
@@ -664,81 +660,62 @@ function Header({ protectedPage }) {
             )}
             <AnimatePresence>
               {item.children && activeMenu === item.label && (
-                <motion.div
+                <div
                   className="mega-panel"
                   id={`menu-${item.label}`}
-                  initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 8, scale: 0.98 }}
-                  transition={{ duration: 0.24, ease }}
                   onMouseLeave={() => setActiveMenu(null)}
                 >
                   <div className="mega-panel-head">
                     <span>{item.label}</span>
-                    <small>{item.children.length} pages</small>
-                  </div>
-                  <div className="mega-flow" aria-hidden="true">
-                    <span />
-                    <span />
-                    <span />
+                    <small>Explore</small>
                   </div>
                   <div className="mega-link-grid">
-                    {item.children.map((child, index) => (
-                      <motion.a
+                    {item.children.map((child) => (
+                      <a
                         key={child.href}
                         href={child.href}
                         onClick={() => setActiveMenu(null)}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.22, delay: index * 0.035, ease }}
                       >
                         <span>{child.label}</span>
                         <ArrowRight size={14} />
-                      </motion.a>
+                      </a>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </AnimatePresence>
           </div>
         ))}
       </nav>
       <div className="header-actions">
-        <a className="ghost-link" href="#insights">{protectedPage ? 'Framework' : 'Decision framework'}</a>
-        <Button href={calendly} small external>{protectedPage ? 'Book a call' : 'Assess a project'}</Button>
+        <Button href={calendly} small external>Discuss your transformation</Button>
         <button className="menu-button" type="button" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu size={22} />
         </button>
       </div>
       <AnimatePresence>
         {open && (
-          <motion.div
+          <div
             className="mobile-menu"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.28, ease }}
           >
             <button className="menu-close" type="button" onClick={() => setOpen(false)} aria-label="Close menu">
               <X size={22} />
             </button>
-            <motion.img src={assetPath('kmc-logo-white.png')} alt="" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, ease }} />
-            {navGroups.map((item, index) => (
-              <motion.div
+            <a className="mobile-brand" href="#home" onClick={closeMenus}><img src={assetPath('kmc-logo-white.png')} alt="Knight's Move Consulting" /></a>
+            <p className="mobile-menu-label">Navigate KMC</p>
+            {navGroups.map((item) => (
+              <div
                 className="mobile-group"
                 key={item.label}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.35, delay: 0.06 + index * 0.045, ease }}
               >
                 <a href={item.href} onClick={closeMenus}>{item.label}</a>
                 {item.children?.map((child) => (
                   <a className="mobile-child" key={child.href} href={child.href} onClick={closeMenus}>{child.label}</a>
                 ))}
-              </motion.div>
+              </div>
             ))}
-            <Button href={calendly} external>Book a 30-minute call</Button>
-          </motion.div>
+            <Button href={calendly} external>Discuss your transformation</Button>
+          </div>
         )}
       </AnimatePresence>
     </motion.header>
@@ -749,23 +726,20 @@ function HomePage() {
   return (
     <EditorialPage>
       <EditorialHero
-        index="01 / Independent transformation advice"
-        eyebrow="For CEOs, COOs, CFOs, IT and operations leaders"
-        title="Fix the workflow before you fund the system."
-        text="KMC reviews ERP, CargoWise, AI and change programmes before vendor decisions lock in the wrong way of working."
-        primary="Assess a live decision"
-        secondary="See the decision paths"
-        secondaryHref="#decisions"
-        statement="Technology should follow the operating decision. Not make it for you."
+        index="Operational intelligence"
+        eyebrow="AI, systems and transformation delivery"
+        title="Make complex operations work better."
+        text="KMC redesigns critical workflows, applies AI where it creates value, and delivers the systems and change needed to make it real."
+        primary="Discuss your transformation"
+        secondary="See how KMC works"
+        secondaryHref="#how-it-works"
+        statement="From fragmented work to a controlled, AI-ready operation."
       />
-      <EditorialTicker items={['ERP selection', 'CargoWise optimisation', 'AI workflow readiness', 'Digital roadmaps', 'Adoption', 'Specialist delivery']} />
-      <DecisionDirectory id="decisions" />
-      <WorkflowStoryboard />
-      <EvidenceLedger />
-      <ServiceDirectory />
-      <LeadershipFeature />
-      <EditorialFAQ />
-      <EditorialCTA title="Test the workflow risk before you sign." text="Bring the project, vendor shortlist or delivery problem. KMC will show what to fix first." />
+      <CredibilityRail />
+      <OperationalStory />
+      <OutcomeStory />
+      <EngagementGroups />
+      <LeadershipConversion />
     </EditorialPage>
   )
 }
@@ -787,19 +761,53 @@ function EditorialHero({ index, eyebrow, title, text, primary, secondary, second
             <a href={secondaryHref}>{secondary}<ArrowRight size={16} /></a>
           </motion.div>
         </motion.div>
-        <motion.aside className="ed-hero-aside" initial={{ opacity: 0, x: 28 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7, delay: 0.25, ease }}>
-          <span>Decision intelligence</span>
-          <p>{statement}</p>
-          <div className="ed-hero-readout">
-            <div><span>01</span><strong>Workflow</strong><b>Mapped</b></div>
-            <div><span>02</span><strong>Risk</strong><b>Visible</b></div>
-            <div><span>03</span><strong>Next move</strong><b>Defined</b></div>
-          </div>
-          <div className="ed-signal"><i /><i /><i /><i /></div>
-        </motion.aside>
+        <OperationalVisual statement={statement} />
       </div>
     </section>
   )
+}
+
+function OperationalVisual({ statement }) {
+  const stages = [['01', 'Work', 'Fragmented'], ['02', 'Flow', 'Mapped'], ['03', 'AI', 'Applied'], ['04', 'Value', 'Visible']]
+  return (
+    <motion.aside className="op-visual" initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: .8, delay: .2, ease }}>
+      <div className="op-visual-top"><span>Live operating model</span><i>Analysing</i></div>
+      <p>{statement}</p>
+      <div className="op-flow">{stages.map(([number, label, state]) => <div key={label}><span>{number}</span><strong>{label}</strong><b>{state}</b></div>)}</div>
+      <div className="op-pulse"><i /><i /><i /><i /><i /></div>
+    </motion.aside>
+  )
+}
+
+function CredibilityRail() {
+  return <section className="op-credibility"><div className="wrapper"><span>Independent, senior-led transformation expertise across</span><div>{['ERP & CargoWise', 'AI workflow readiness', 'Digital strategy', 'Change & adoption', 'Managed delivery'].map((item) => <strong key={item}>{item}</strong>)}</div></div></section>
+}
+
+function OperationalStory({ variant = 'home', title = 'Turn fragmented work into a controlled operation.', text = 'KMC follows the work across people, data and systems, then redesigns the operating flow before technology decisions harden.' }) {
+  const stages = operationFlows[variant]?.stages || operationFlows.home.stages
+  return <section className="op-story" id="how-it-works"><div className="wrapper op-story-grid"><div className="op-story-copy"><span>How KMC works</span><h2>{title}</h2><p>{text}</p><a href="#services">Explore the expertise <ArrowRight size={15} /></a></div><div className="op-story-demo" style={{ '--stage-count': stages.length }}><div className="op-story-console"><span>Operating workflow</span><b><i /> Live model</b></div><div className="op-story-path" aria-hidden="true"><i /><i /><i /></div><div className="op-story-stages">{stages.map((stage, index) => <motion.div key={stage} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .5 }} transition={{ delay: index * .1, duration: .45, ease }}><span>0{index + 1}</span><strong>{stage}</strong><i /></motion.div>)}</div><div className="op-story-output"><span>Input</span><i /><strong>Controlled delivery path</strong></div></div></div></section>
+}
+
+function OutcomeStory() {
+  const outcomes = [
+    ['Reduce operating waste', 'Remove re-keying, broken handoffs and unnecessary work before automating it.'],
+    ['Make better technology investments', 'Choose ERP, CargoWise and AI work against operating evidence, not vendor momentum.'],
+    ['Deliver change people adopt', 'Connect design, implementation and change so value survives go-live.'],
+  ]
+  return <section className="op-outcomes"><div className="wrapper"><div className="op-section-intro"><span>Commercial outcomes</span><h2>Change the operation, not just the technology.</h2></div><div className="op-outcome-list">{outcomes.map(([title, text], index) => <motion.article key={title} initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * .1 }}><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p></motion.article>)}</div></div></section>
+}
+
+function EngagementGroups() {
+  const groups = [
+    ['Strategy & readiness', 'Decide what to fund, where AI fits, and what must change first.', ['AI Strategy & Workflow Readiness', 'Digital Roadmap'], '#ai-first'],
+    ['Systems & workflow transformation', 'Redesign critical work and make ERP or CargoWise support it.', ['ERP Transformation', 'Supply Chain Transformation'], '#service-erp'],
+    ['Delivery & adoption', 'Add delivery capability and make change stick across the organisation.', ['OCM & Training', 'Borderless Resourcing'], '#service-ocm'],
+  ]
+  return <section className="op-engagements" id="services"><div className="wrapper"><div className="op-section-intro"><span>Focused expertise</span><h2>Three ways to move from decision to value.</h2></div><div className="op-engagement-list">{groups.map(([title, text, links, href], index) => <a href={href} key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{text}</p><small>{links.join(' · ')}</small></div><ArrowRight size={20} /></a>)}</div></div></section>
+}
+
+function LeadershipConversion({ title = 'Senior judgement stays close to the work.' }) {
+  return <section className="op-leadership"><div className="wrapper"><div className="op-leadership-images"><img src={assetPath('khalid-gibran.jpg')} alt="Richard Raj" /><img src={assetPath('mahen-prasad.jpg')} alt="Mahen Prasad" /><img src={assetPath('richard-raj.jpg')} alt="Khalid Gibran" /></div><div><span>Leadership-led delivery</span><h2>{title}</h2><p>Bring the live operating problem. Speak directly with the team that will shape the recommendation and stay accountable for the work.</p><Button href={calendly} external>Discuss your transformation</Button></div></div></section>
 }
 
 function EditorialTicker({ items }) {
@@ -905,28 +913,108 @@ function LeadershipFeature() {
   )
 }
 
-function EditorialFAQ({ items }) {
-  const defaults = [
-    ['Do we need to know the platform before speaking with KMC?', 'No. KMC is most useful before the decision is locked in, while workflows, priorities and risks can still be shaped.'],
-    ['Can KMC stay involved after the review?', 'Yes. Work can move from assessment into configuration, integration, training, change management or managed specialist capacity.'],
-    ['What if the project is already underway?', 'KMC can review the current path and identify the highest-risk workflow, scope or adoption gaps before go-live.'],
+function DecisionAssessment() {
+  const choices = [
+    ['Vendor decision approaching', 'Test workflow fit and decision criteria before vendor momentum hardens the choice.', '#service-erp'],
+    ['Current programme slipping', 'Expose the delivery, scope and adoption risks creating delay before adding more resource.', '#services'],
+    ['AI pressure without readiness', 'Find one viable workflow and the data, access and control gaps that must be fixed first.', '#ai-first'],
+    ['Team adoption at risk', 'Design manager support, role training and reinforcement before go-live pressure arrives.', '#service-ocm'],
   ]
-  return <AccordionSection items={items || defaults} />
-}
-
-function AccordionSection({ items }) {
-  const [openItem, setOpenItem] = useState(0)
+  const [selected, setSelected] = useState(0)
   return (
-    <section className="ed-section ed-paper">
-      <div className="wrapper ed-faq-layout"><EditorialHeading number="07" eyebrow="Questions" title="What leaders ask before the work starts." />
-        <div className="ed-accordion">{items.map(([question, answer], index) => <article key={question}><button type="button" onClick={() => setOpenItem(openItem === index ? -1 : index)} aria-expanded={openItem === index}><span>{String(index + 1).padStart(2, '0')}</span><strong>{question}</strong><span>{openItem === index ? '−' : '+'}</span></button><AnimatePresence>{openItem === index && <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }}>{answer}</motion.p>}</AnimatePresence></article>)}</div>
+    <section className="ed-decision-tool">
+      <div className="wrapper ed-decision-grid">
+        <div className="ed-decision-copy">
+          <span>07 / Your next move</span>
+          <h2>What is creating decision pressure?</h2>
+          <p>Choose the live situation. The useful first conversation starts there, not with a generic capability pitch.</p>
+        </div>
+        <div className="ed-choice-list" role="tablist" aria-label="Decision pressure">
+          {choices.map(([label], index) => <button type="button" role="tab" aria-selected={selected === index} className={selected === index ? 'active' : ''} onClick={() => setSelected(index)} key={label}><span>0{index + 1}</span>{label}<ArrowRight size={17} /></button>)}
+        </div>
+        <AnimatePresence mode="wait">
+          <motion.div className="ed-choice-result" key={choices[selected][0]} initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -18 }} transition={{ duration: 0.35, ease }}>
+            <span>Recommended first move</span>
+            <h3>{choices[selected][0]}</h3>
+            <p>{choices[selected][1]}</p>
+            <div><Button href={calendly} external>Discuss this decision</Button><a href={choices[selected][2]}>See relevant path <ArrowRight size={15} /></a></div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   )
 }
 
-function EditorialCTA({ title, text }) {
-  return <section className="ed-cta"><div className="wrapper"><span>Next move</span><h2>{title}</h2><p>{text}</p><Button href={calendly} external>Book a focused conversation</Button></div></section>
+function ServiceSelector() {
+  const prompts = [
+    ['CargoWise, freight data or logistics workarounds', services[0]],
+    ['ERP selection, rescue or implementation risk', services[1]],
+    ['AI pressure with no clear starting workflow', services[2]],
+    ['Too many digital priorities and no sequence', services[3]],
+    ['Adoption, training or change fatigue', services[4]],
+    ['A capability gap blocking delivery', services[5]],
+  ]
+  const [selected, setSelected] = useState(0)
+  const service = prompts[selected][1]
+  return (
+    <section className="ed-section ed-light" id="services-list">
+      <div className="wrapper">
+        <EditorialHeading number="01" eyebrow="Service matcher" title="Start with the pressure, not the service name." text="Select the situation closest to yours. The matching path explains what KMC tests first and what your team receives." />
+        <div className="ed-selector">
+          <div className="ed-selector-options">{prompts.map(([label], index) => <button type="button" className={selected === index ? 'active' : ''} onClick={() => setSelected(index)} key={label}><span>0{index + 1}</span><strong>{label}</strong></button>)}</div>
+          <motion.aside key={service.slug} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease }}>
+            <span>Matched starting point</span><h2>{service.title}</h2><p>{service.subline}</p>
+            <ul>{service.deliverables.slice(0, 3).map((item) => <li key={item}><Check size={15} />{item}</li>)}</ul>
+            <a href={`#service-${service.slug}`}>Explore this service <ArrowRight size={16} /></a>
+          </motion.aside>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function EngagementPath({ title, text, cta = 'Book a focused conversation' }) {
+  const steps = [
+    ['Bring the live decision', 'Share the blocker, shortlist, workflow or delivery concern creating pressure now.'],
+    ['See the risk clearly', 'KMC identifies the evidence gap, operating risk and assumptions worth testing.'],
+    ['Leave with a next move', 'You get a practical recommendation on what to assess, pause, fund or sequence next.'],
+  ]
+  return (
+    <section className="ed-engagement">
+      <div className="wrapper ed-engagement-grid">
+        <div><span>05 / First conversation</span><h2>{title}</h2><p>{text}</p><Button href={calendly} external>{cta}</Button></div>
+        <ol>{steps.map(([step, copy], index) => <motion.li key={step} initial={{ opacity: 0.25, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: 0.7 }}><span>0{index + 1}</span><div><strong>{step}</strong><p>{copy}</p></div></motion.li>)}</ol>
+      </div>
+    </section>
+  )
+}
+
+function SectorRiskMap() {
+  return (
+    <section className="ed-sector-map">
+      <div className="wrapper">
+        <div className="ed-sector-intro"><span>02 / Risk map</span><h2>Different sectors. Different points of failure.</h2><p>Follow the operating pressure to the system, workflow and adoption decision it creates.</p></div>
+        <div className="ed-sector-routes">{industries.map((industry, index) => <motion.a href={`#industry-${industry.slug}`} key={industry.slug} initial={{ opacity: 0, scale: 0.96 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: index * 0.08, duration: 0.45, ease }}><span>0{index + 1}</span><h3>{industry.title}</h3><p>{industry.now[0]}</p><strong>{industry.next[0]} <ArrowRight size={15} /></strong></motion.a>)}</div>
+      </div>
+    </section>
+  )
+}
+
+function IndustryDecision({ industry }) {
+  const [selected, setSelected] = useState(0)
+  return (
+    <section className="ed-industry-decision">
+      <div className="wrapper ed-industry-decision-grid">
+        <div><span>04 / Locate the pressure</span><h2>Where is risk showing up in your operation?</h2></div>
+        <div className="ed-risk-options">{industry.now.map((item, index) => <button type="button" className={selected === index ? 'active' : ''} onClick={() => setSelected(index)} key={item}><span>0{index + 1}</span>{item}</button>)}</div>
+        <motion.div className="ed-risk-result" key={industry.next[selected] || industry.next[0]} initial={{ opacity: 0 }} animate={{ opacity: 1 }}><span>Target move</span><h3>{industry.next[selected] || industry.next[0]}</h3><p>Use a focused conversation to test the workflow, system and adoption implications before more spend is committed.</p><Button href={calendly} external>Discuss this operating risk</Button></motion.div>
+      </div>
+    </section>
+  )
+}
+
+function LeadershipContact() {
+  return <section className="ed-leader-contact"><div className="wrapper"><div><span>Direct access</span><h2>Speak with the people who will shape the work.</h2><p>No sales handoff. Bring the live decision and get a senior, independent view of the risk and the next useful move.</p><Button href={calendly} external>Start with the leadership team</Button></div><div className="ed-leader-names"><span>Founder and Managing Director</span><strong>Richard Raj</strong><span>General Manager</span><strong>Mahen Prasad</strong><span>Business Development Director</span><strong>Khalid Gibran</strong></div></div></section>
 }
 
 const heroVisuals = {
@@ -1311,34 +1399,14 @@ function LeadershipPanel() {
   )
 }
 
-function FAQSection() {
-  const faqs = [
-    ['Do we need to know the platform before speaking with KMC?', 'No. KMC is most useful before the decision is locked in, when workflows, priorities and risks can still be shaped.'],
-    ['Is this only for large programmes?', 'No. The work can start with a focused review, roadmap, CargoWise optimisation, ERP selection or adoption issue.'],
-    ['How is KMC different from a software vendor?', 'KMC starts with the operating model and the cost of getting it wrong, then helps decide what system, change or resourcing is needed.'],
-    ['Can KMC stay involved after the review?', 'Yes. Engagements can move from assessment into configuration, integration, training, OCM or managed specialist capacity.'],
-    ['What if our team is already mid-project?', 'KMC can review the current path, identify the highest-risk gaps and help rescue scope, adoption or workflow design before go-live.'],
-    ['How quickly can we get value?', 'A first call can clarify the decision, the risk and the next piece of work.'],
-  ]
-  return (
-    <RevealSection className="section wrapper faq-section">
-      <SectionHeader eyebrow="FAQ and objections" title="What leaders usually ask before a first call." />
-      <motion.div className="faq-grid" variants={staggerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-        {faqs.map(([question, answer]) => <GlassCard key={question} title={question} text={answer} compact />)}
-      </motion.div>
-    </RevealSection>
-  )
-}
-
 function AIPage() {
-  const principles = ['Pick the workflow first', 'Check system access', 'Clean the data path', 'Set controls early', 'Pilot before rollout']
   return (
     <EditorialPage>
-      <EditorialHero compact index="AI / Readiness" eyebrow="For boards and executive teams" title="Find AI use cases worth funding." text="KMC reviews workflows, data access and controls so leaders can choose a small number of AI moves that can actually work." primary="Assess AI readiness" secondary="Take the readiness check" secondaryHref="#ai-readiness" statement="The useful question is not where AI can be added. It is which workflow is ready to change." />
-      <section className="ed-section ed-light"><div className="wrapper"><EditorialHeading number="01" eyebrow="Readiness matrix" title="Five conditions before a controlled pilot." /><div className="ed-matrix">{principles.map((item, index) => <div key={item}><span>0{index + 1}</span><strong>{item}</strong><i /></div>)}</div></div></section>
-      <WorkflowStrip variant="ai-strategy" />
+      <EditorialHero compact index="AI strategy" eyebrow="For boards and executive teams" title="Put AI into work that matters." text="Find the workflows worth changing, prove the operating value, and build the controls needed to scale with confidence." primary="Assess AI readiness" secondary="See the readiness path" secondaryHref="#how-it-works" statement="Workflow first. Data connected. Controls built in." />
+      <CredibilityRail />
+      <OperationalStory variant="ai-strategy" title="Move from AI pressure to one controlled, valuable workflow." text="KMC connects the commercial case, operating workflow, system access and governance before a pilot is funded." />
       <ReadinessQuiz />
-      <EditorialCTA title="Check workflow readiness before buying AI." text="KMC will identify the first use cases worth testing and the gaps that need fixing." />
+      <LeadershipConversion title="Start with one workflow worth proving." />
     </EditorialPage>
   )
 }
@@ -1387,10 +1455,10 @@ function ReadinessQuiz() {
 function ServicesHub() {
   return (
     <EditorialPage>
-      <EditorialHero compact index="Services / Decision paths" eyebrow="For leaders with a live decision" title="Choose the right first move." text="ERP selection, CargoWise gaps, AI pressure, adoption risk and short-term delivery capacity each need a different starting point." primary="Assess a live project" secondary="Explore services" secondaryHref="#services-list" statement="A focused first move is more valuable than a broad transformation promise." />
-      <DirectorySection number="01" eyebrow="Service directory" title="Start with the decision creating risk, delay or uncertainty." text="Each engagement can begin as a focused assessment and expand only when the evidence supports it." items={services} type="service" />
-      <EvidenceLedger />
-      <EditorialCTA title="Unsure which service fits?" text="Bring the current blocker. KMC will identify the risk and the most practical starting point." />
+      <EditorialHero compact index="Transformation services" eyebrow="Strategy, systems and delivery" title="The expertise to move from decision to value." text="KMC combines operating strategy, AI and systems depth, change leadership and managed delivery around the transformation you need to make." primary="Discuss your transformation" secondary="Explore the expertise" secondaryHref="#services" statement="One connected path from operating problem to delivered change." />
+      <EngagementGroups />
+      <OperationalStory title="A connected delivery model, not a collection of services." text="Every engagement starts with the operating outcome, then brings in the strategy, system, change and delivery capability required to achieve it." />
+      <LeadershipConversion />
     </EditorialPage>
   )
 }
@@ -1401,13 +1469,11 @@ function ServicePage({ service }) {
   return (
     <EditorialPage>
       <EditorialHero compact index={`Service / ${service.title}`} eyebrow={service.audience} title={heroTitle} text={content?.heroText || service.subline} primary={service.cta} secondary="See the method" secondaryHref="#process" statement={service.proof.join(' · ')} />
-      <ProblemLedger title={`The signals that ${service.title.toLowerCase()} needs attention.`} items={service.pains} />
-      <ComparisonSpread items={content?.traditional || []} />
-      <ServiceStoryboard service={service} />
-      <DeliverablesTable items={content?.benefits || service.deliverables} />
+      <CredibilityRail />
+      <ServiceTransformation service={service} />
+      <OperationalStory variant={service.slug} title={`How ${service.title.toLowerCase()} moves from risk to value.`} text={service.subline} />
       <ProofBand items={service.proof} />
-      <EditorialFAQ items={content?.faqs?.length ? content.faqs : undefined} />
-      <EditorialCTA title={`Need ${service.title.toLowerCase()} without a slow discovery process?`} text="Bring the current decision or blocker. KMC will identify the risk, the next step and whether the work is worth doing." />
+      <LeadershipConversion title={`Start ${service.title.toLowerCase()} with one useful decision.`} />
     </EditorialPage>
   )
 }
@@ -1416,9 +1482,10 @@ function IndustriesHub() {
   return (
     <EditorialPage>
       <EditorialHero compact index="Industries / Operating risk" eyebrow="For sector teams with messy systems" title="Fix the workflow risk in your sector." text="Freight, manufacturing, healthcare and finance teams carry different system risk. Start with the page that sounds like your operation." primary="Discuss your environment" secondary="Explore sectors" secondaryHref="#industries-list" statement="The platform may be similar. The operating risk is not." />
-      <DirectorySection number="01" eyebrow="Industry directory" title="Choose the operating environment closest to yours." text="See the workflows, controls and adoption risks KMC examines first." items={industries} type="industry" />
-      <WorkflowStoryboard />
-      <EditorialCTA title="Need a sector-specific second opinion?" text="Bring the current operating blocker. KMC will show which decision needs attention first." />
+      <CredibilityRail />
+      <IndustryStories />
+      <OperationalStory title="Sector knowledge changes the transformation path." text="KMC connects technology and AI decisions to the controls, workflow realities and adoption risks of the operating environment." />
+      <LeadershipConversion title="Bring the operating problem, not a polished brief." />
     </EditorialPage>
   )
 }
@@ -1428,9 +1495,9 @@ function IndustryPage({ industry }) {
     <EditorialPage>
       <EditorialHero compact index={`Industry / ${industry.title}`} eyebrow={industry.audience} title={industry.headline} text="KMC connects system, workflow and adoption decisions to the realities of your operating environment." primary="Discuss the operating risk" secondary="Compare current state" secondaryHref="#process" statement={industry.next[0]} />
       <StateSpread industry={industry} />
-      <WorkflowStrip variant={industry.slug} />
+      <OperationalStory variant={industry.slug} title={`A clearer operating path for ${industry.title.toLowerCase()}.`} text="Follow the work, connect the systems, and sequence change around the way the organisation actually operates." />
       <RelatedServices links={industry.serviceLinks} title={`Relevant moves for ${industry.title.toLowerCase()}.`} />
-      <EditorialCTA title={`Running a ${industry.title.toLowerCase()} operation with system or workflow risk?`} text="Bring the current blocker. KMC will show which decision needs attention first." />
+      <LeadershipConversion title="Discuss the workflow creating the most risk." />
     </EditorialPage>
   )
 }
@@ -1440,8 +1507,8 @@ function AboutPage() {
     <EditorialPage>
       <EditorialHero compact index="Company / Leadership" eyebrow="About Knight's Move Consulting" title="Meet the team before system decisions get expensive." text="KMC gives senior client-side advice, delivery control and specialist capacity for system and workflow change." primary="Book a consultation" secondary="Meet the team" secondaryHref="#leadership" statement="Senior judgement should stay close to the decision and the work." />
       <LeadershipPanel />
-      <EvidenceLedger />
-      <EditorialCTA title="Get a second opinion before spend increases." text="Bring the current problem, project or vendor decision. KMC will show the risk and the next move before spend increases." />
+      <OperationalStory title="Senior advice connected to delivery reality." text="KMC stays close from operating diagnosis through system, AI, change and delivery decisions." />
+      <LeadershipConversion title="Speak with the people who will shape the work." />
     </EditorialPage>
   )
 }
@@ -1472,13 +1539,20 @@ function InsightsPage() {
           <span className="form-note" aria-live="polite">{frameworkReady ? 'Your email app is opening with the request prepared.' : 'The request opens in your email app. No marketing list.'}</span>
         </form>
       </div></section>
-      <EditorialCTA title="Need to test a live decision?" text="Bring the current project, shortlist or AI question. KMC will identify the next piece of evidence worth gathering." />
     </EditorialPage>
   )
 }
 
 function ProblemLedger({ title, items }) {
   return <section className="ed-section ed-light"><div className="wrapper"><EditorialHeading number="01" eyebrow="Problem ledger" title={title} /><div className="ed-problem-ledger">{items.map((item, index) => <div key={item}><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></div>)}</div></div></section>
+}
+
+function ServiceTransformation({ service }) {
+  return <section className="op-transformation" id="process"><div className="wrapper"><div className="op-section-intro"><span>The transformation</span><h2>Replace operating friction with a better flow.</h2></div><div className="op-transform-grid"><div><span>What is getting in the way</span>{service.pains.slice(0, 3).map((item) => <p key={item}>{item}</p>)}</div><div><span>What your team leaves with</span>{service.deliverables.slice(0, 4).map((item) => <p key={item}><Check size={15} />{item}</p>)}</div></div></div></section>
+}
+
+function IndustryStories() {
+  return <section className="op-industries" id="industries-list"><div className="wrapper"><div className="op-section-intro"><span>Operating environments</span><h2>See the transformation through the work.</h2></div><div className="op-industry-list">{industries.map((industry, index) => <a href={`#industry-${industry.slug}`} key={industry.slug}><span>0{index + 1}</span><div><h3>{industry.title}</h3><p>{industry.now[0]}</p></div><strong>{industry.next[0]}</strong><ArrowRight size={18} /></a>)}</div></div></section>
 }
 
 function ComparisonSpread({ items }) {
@@ -1508,7 +1582,11 @@ function StateSpread({ industry }) {
 }
 
 function RelatedServices({ links, title }) {
-  return <section className="ed-section ed-light"><div className="wrapper"><EditorialHeading number="03" eyebrow="Relevant services" title={title} /><div className="ed-related">{links.map((link, index) => <div key={link}><span>0{index + 1}</span><strong>{link}</strong><ArrowRight size={17} /></div>)}</div></div></section>
+  const serviceHref = (label) => {
+    const match = services.find((service) => service.title.toLowerCase().includes(label.toLowerCase().replace(' workflow review', '').replace(' selection', '').replace(' & change management', '')))
+    return match ? `#service-${match.slug}` : '#services'
+  }
+  return <section className="ed-section ed-light"><div className="wrapper"><EditorialHeading number="03" eyebrow="Relevant services" title={title} /><div className="ed-related">{links.map((link, index) => <a href={serviceHref(link)} key={link}><span>0{index + 1}</span><strong>{link}</strong><ArrowRight size={17} /></a>)}</div></div></section>
 }
 
 function PublicationIndex() {
@@ -1614,17 +1692,6 @@ function ServiceProof({ service, content }) {
       <SectionHeader eyebrow="Trust and proof" title={content?.proofTitle || 'Specific reasons KMC wins this work.'} text={content?.proofText} />
       <motion.div className="tile-grid" variants={staggerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
         {service.proof.map((item) => <GlassCard key={item} title={item} text="How it shows up: clear recommendations, named risks and a delivery path the client can control." compact />)}
-      </motion.div>
-    </RevealSection>
-  )
-}
-
-function ServiceFAQ({ faqs }) {
-  return (
-    <RevealSection className="section wrapper">
-      <SectionHeader eyebrow="FAQ" title="Questions buyers usually ask before this work starts." />
-      <motion.div className="faq-grid" variants={staggerVariants} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
-        {faqs.map(([question, answer]) => <GlassCard key={question} title={question} text={answer} compact />)}
       </motion.div>
     </RevealSection>
   )
@@ -1743,7 +1810,7 @@ function HubCard({ item, href }) {
 
 // Retained temporarily as compatibility fallbacks while the editorial routes use
 // the new AI conversion components above.
-void [Hero, LogoLoop, HomeProblem, HomeSolution, HomeOutcomes, ProcessSteps, ServicesSnapshot, HomeProof, FAQSection, PainPoints, TraditionalFailure, Methodology, BenefitsOutcomes, OperationFlow, ApproachSteps, ServiceProof, ServiceFAQ, LatestInsights, CTASection, HubCard]
+void [Hero, LogoLoop, HomeProblem, HomeSolution, HomeOutcomes, ProcessSteps, ServicesSnapshot, HomeProof, PainPoints, TraditionalFailure, Methodology, BenefitsOutcomes, OperationFlow, ApproachSteps, ServiceProof, LatestInsights, CTASection, HubCard, EditorialTicker, DecisionDirectory, WorkflowStoryboard, EvidenceLedger, ServiceDirectory, DirectorySection, LeadershipFeature, DecisionAssessment, ServiceSelector, EngagementPath, SectorRiskMap, IndustryDecision, LeadershipContact, ProblemLedger, ComparisonSpread, ServiceStoryboard, DeliverablesTable, WorkflowStrip]
 
 function Metric({ value, label, suffix = '' }) {
   const ref = useRef(null)
@@ -1773,39 +1840,25 @@ function Metric({ value, label, suffix = '' }) {
 
 function Button({ href, children, small, external, asButton }) {
   const className = `primary-button ${small ? 'small' : ''}`
-  const motionProps = {
-    whileHover: { y: -3, scale: 1.018, boxShadow: '0 28px 70px rgba(235, 194, 102, 0.32)' },
-    whileTap: { y: 0, scale: 0.975 },
-    transition: { duration: 0.2, ease },
-  }
-  if (asButton) return <motion.button className={className} type="submit" {...motionProps}>{children}<ArrowRight size={17} /></motion.button>
-  return <motion.a className={className} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined} {...motionProps}>{children}<ArrowRight size={17} /></motion.a>
+  if (asButton) return <button className={className} type="submit">{children}<ArrowRight size={17} /></button>
+  return <a className={className} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>{children}<ArrowRight size={17} /></a>
 }
 
-function Footer({ protectedPage }) {
+function Footer() {
   return (
     <footer className="site-footer">
-      {!protectedPage && (
-        <div className="wrapper footer-conversion">
-          <div>
-            <span>Have a live system, workflow or AI decision?</span>
-            <strong>Get an independent view before more spend is committed.</strong>
-          </div>
-          <Button href={calendly} external>Assess the decision</Button>
-        </div>
-      )}
       <div className="wrapper footer-grid">
         <div>
           <img src={assetPath('kmc-logo-white.png')} alt="Knight's Move Consulting" />
-          <p>Client-side advice for ERP, CargoWise, AI workflow, adoption and specialist delivery decisions.</p>
+          <p>Independent transformation advice and delivery support across operational workflows, ERP, CargoWise, AI strategy, organisational change and specialist resourcing.</p>
         </div>
         <FooterColumn title="Services" items={services.map((item) => [item.title, `#service-${item.slug}`])} />
         <FooterColumn title="Industries" items={industries.map((item) => [item.title, `#industry-${item.slug}`])} />
         <FooterColumn title="Company" items={[['AI Catlyst', '#ai-catlyst'], ['About', '#about'], ['Insights', '#insights'], ['AI Strategy', '#ai-first']]} />
       </div>
       <div className="wrapper footer-bottom">
-        <span>{protectedPage ? "© 2025 Knight's Move Consulting Ltd." : "© 2026 Knight's Move Consulting Ltd."}</span>
-        <span>knightsmoveconsulting.com | +64 21 228 9920</span>
+        <span>© 2026 Knight's Move Consulting Ltd.</span>
+        <a href="mailto:info@knightsmoveconsulting.com">info@knightsmoveconsulting.com</a>
         <span>Designed by <a href="https://levatahq.com" target="_blank" rel="noreferrer">Levata</a></span>
       </div>
     </footer>

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, MotionConfig, useScroll, useSpring } from 'framer-motion'
 import {
   ArrowRight,
@@ -10,6 +10,7 @@ import {
   Gauge,
   Layers3,
   LockKeyhole,
+  Menu,
   Network,
   Rocket,
   Search,
@@ -18,6 +19,7 @@ import {
   Target,
   Users,
   Workflow,
+  X,
 } from 'lucide-react'
 import './AICatlystPage.css'
 
@@ -135,6 +137,7 @@ function scrollToSection(id) {
 }
 
 function AICatlystPage() {
+  const [menuOpen, setMenuOpen] = useState(false)
   const { scrollYProgress } = useScroll()
   const progressScale = useSpring(scrollYProgress, { stiffness: 100, damping: 24, restDelta: 0.001 })
 
@@ -174,6 +177,27 @@ function AICatlystPage() {
     <MotionConfig reducedMotion="user">
       <div className="aic-page">
       <motion.div className="aic-scroll-progress" style={{ scaleX: progressScale }} aria-hidden="true" />
+      <header className="aic-header">
+        <a className="aic-header-brand" href="#ai-catlyst" aria-label="AI Catlyst home">
+          <img src={assetPath('ai-catlyst-mark.png')} alt="" />
+          <strong><span>AI</span> Catlyst</strong>
+        </a>
+        <nav aria-label="AI Catlyst navigation">
+          <button type="button" onClick={() => scrollToSection('aic-solutions')}>Solutions</button>
+          <button type="button" onClick={() => scrollToSection('aic-contact')}>Assessment</button>
+          <a href="#home">KMC Group</a>
+        </nav>
+        <a className="aic-header-cta" href={assessmentEmail}>Book an assessment <ArrowRight size={15} /></a>
+        <button className="aic-menu-button" type="button" aria-label="Open AI Catlyst menu" onClick={() => setMenuOpen(true)}><Menu size={21} /></button>
+        {menuOpen && <div className="aic-mobile-menu">
+          <button type="button" aria-label="Close AI Catlyst menu" onClick={() => setMenuOpen(false)}><X size={21} /></button>
+          <a className="aic-header-brand" href="#ai-catlyst" onClick={() => setMenuOpen(false)}><img src={assetPath('ai-catlyst-mark.png')} alt="" /><strong><span>AI</span> Catlyst</strong></a>
+          <button type="button" onClick={() => { scrollToSection('aic-solutions'); setMenuOpen(false) }}>Solutions</button>
+          <button type="button" onClick={() => { scrollToSection('aic-contact'); setMenuOpen(false) }}>Assessment</button>
+          <a href="#home">KMC Group</a>
+          <a className="aic-header-cta" href={assessmentEmail}>Book an assessment <ArrowRight size={15} /></a>
+        </div>}
+      </header>
       <section className="aic-hero">
         <div className="aic-grid" aria-hidden="true" />
         <div className="aic-aurora" aria-hidden="true" />
@@ -196,22 +220,45 @@ function AICatlystPage() {
             <p className="aic-trust"><Check size={15} /> Built around your business expertise, existing systems and operational priorities.</p>
           </motion.div>
           <motion.div className="aic-hero-visual" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.12 }}>
-            <div className="aic-brand-lockup">
-              <img src={assetPath('ai-catlyst-mark.png')} alt="" />
-              <div>
-                <strong><span>AI</span> Catlyst</strong>
-                <small>Exponential growth &amp; efficiency</small>
+            <div className="aic-neural-net">
+              <div className="aic-nn-header"><span>Neural Architecture</span><strong>Applied AI</strong></div>
+              <svg className="aic-nn-svg" viewBox="0 0 504 288" fill="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="nn-ga" gradientUnits="userSpaceOnUse" x1="72" y1="0" x2="432" y2="0">
+                    <stop offset="0%" stopColor="#3ab4ff" /><stop offset="100%" stopColor="#a06be8" />
+                  </linearGradient>
+                  <linearGradient id="nn-gb" gradientUnits="userSpaceOnUse" x1="72" y1="0" x2="432" y2="0">
+                    <stop offset="0%" stopColor="#9b5ce0" /><stop offset="100%" stopColor="#3ab4ff" />
+                  </linearGradient>
+                  <linearGradient id="nn-gc" gradientUnits="userSpaceOnUse" x1="72" y1="0" x2="432" y2="0">
+                    <stop offset="0%" stopColor="#3ab4ff" /><stop offset="100%" stopColor="#c470f5" />
+                  </linearGradient>
+                  <filter id="nn-glow" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="3.5" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                  </filter>
+                </defs>
+                <text x="72" y="12" fill="#4a6080" fontSize="8" textAnchor="middle" letterSpacing="1.5">INPUT</text>
+                <text x="192" y="12" fill="#4a6080" fontSize="8" textAnchor="middle" letterSpacing="1.5">HIDDEN</text>
+                <text x="312" y="12" fill="#4a6080" fontSize="8" textAnchor="middle" letterSpacing="1.5">HIDDEN</text>
+                <text x="432" y="12" fill="#4a6080" fontSize="8" textAnchor="middle" letterSpacing="1.5">OUTPUT</text>
+                {[54,110,166,222].flatMap((y1,i1) => [38,94,150,206,262].map((y2,i2) => <line key={`l01-${i1}-${i2}`} x1="72" y1={y1} x2="192" y2={y2} stroke="rgba(80,140,255,0.09)" strokeWidth="1" />))}
+                {[38,94,150,206,262].flatMap((y1,i1) => [38,94,150,206,262].map((y2,i2) => <line key={`l12-${i1}-${i2}`} x1="192" y1={y1} x2="312" y2={y2} stroke="rgba(80,140,255,0.09)" strokeWidth="1" />))}
+                {[38,94,150,206,262].flatMap((y1,i1) => [82,154,226].map((y2,i2) => <line key={`l23-${i1}-${i2}`} x1="312" y1={y1} x2="432" y2={y2} stroke="rgba(80,140,255,0.09)" strokeWidth="1" />))}
+                <path d="M 72,54 L 192,94 L 312,150 L 432,154" stroke="url(#nn-ga)" strokeWidth="2" pathLength="1" strokeDasharray="0.07 0.93" className="aic-nn-signal aic-nn-signal-a" />
+                <path d="M 72,166 L 192,206 L 312,94 L 432,82" stroke="url(#nn-gb)" strokeWidth="2" pathLength="1" strokeDasharray="0.07 0.93" className="aic-nn-signal aic-nn-signal-b" />
+                <path d="M 72,110 L 192,150 L 312,206 L 432,226" stroke="url(#nn-gc)" strokeWidth="2" pathLength="1" strokeDasharray="0.07 0.93" className="aic-nn-signal aic-nn-signal-c" />
+                {[54,110,166,222].map((y,i) => <circle key={`n0-${i}`} cx="72" cy={y} r="7" fill="#0c1f45" stroke={i<3?'#3ab4ff':'#253d6a'} strokeWidth="1.5" filter={i<3?'url(#nn-glow)':undefined} />)}
+                {[38,94,150,206,262].map((y,i) => <circle key={`n1-${i}`} cx="192" cy={y} r="6.5" fill="#0c1f45" stroke={[1,2,3].includes(i)?'#6a9ee8':'#253d6a'} strokeWidth="1.5" filter={[1,2,3].includes(i)?'url(#nn-glow)':undefined} />)}
+                {[38,94,150,206,262].map((y,i) => <circle key={`n2-${i}`} cx="312" cy={y} r="6.5" fill="#0c1f45" stroke={[1,2,3].includes(i)?'#8a6de8':'#253d6a'} strokeWidth="1.5" filter={[1,2,3].includes(i)?'url(#nn-glow)':undefined} />)}
+                {[82,154,226].map((y,i) => <circle key={`n3-${i}`} cx="432" cy={y} r="8" fill="#0c1f45" stroke="#a06be8" strokeWidth="2" filter="url(#nn-glow)" />)}
+              </svg>
+              <div className="aic-nn-tags">
+                <span>Data <b>Ingested</b></span>
+                <span>Patterns <b>Recognised</b></span>
+                <span>Outcomes <b>Generated</b></span>
               </div>
             </div>
-            <motion.div className="aic-value-engine" animate={{ y: [0, -7, 0] }} transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}>
-              <div className="aic-engine-head"><span>Value architecture</span><strong>01—04</strong></div>
-              <div className="aic-engine-core"><i /><strong><span />Commercial value</strong><i /></div>
-              <div className="aic-engine-signals">
-                <span>Strategy <b>Aligned</b></span>
-                <span>Operations <b>Mapped</b></span>
-                <span>AI readiness <b>Scoped</b></span>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
         <div className="wrapper aic-hero-rail" aria-label="AI Catlyst delivery principles">
@@ -386,7 +433,8 @@ function AICatlystPage() {
 
       <div className="aic-legal wrapper">
         <span>© 2026 AI Catlyst Ltd. All rights reserved.</span>
-        <span>A Knight&apos;s Move Consulting Group Company</span>
+        <a href="#home">A Knight&apos;s Move Consulting Group Company</a>
+        <span>Designed by <a href="https://levatahq.com" target="_blank" rel="noreferrer">Levata</a></span>
       </div>
       </div>
     </MotionConfig>
