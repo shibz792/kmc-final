@@ -48,9 +48,10 @@
 }
 
 .aic-header-brand img {
-  width: 58px;
-  height: 34px;
+  width: 178px;
+  height: 46px;
   object-fit: contain;
+  object-position: left center;
 }
 
 .aic-header-brand strong {
@@ -1391,8 +1392,7 @@
 }
 
 @media (max-width: 520px) {
-  .aic-header-brand img { width: 50px; height: 30px; }
-  .aic-header-brand strong { font-size: 20px; }
+  .aic-header-brand img { width: 142px; height: 38px; }
   .aic-hero { padding-top: 86px; }
 }
 

@@ -179,8 +179,7 @@ function AICatlystPage() {
       <motion.div className="aic-scroll-progress" style={{ scaleX: progressScale }} aria-hidden="true" />
       <header className="aic-header">
         <a className="aic-header-brand" href="#ai-catlyst" aria-label="AI Catlyst home">
-          <img src={assetPath('ai-catlyst-mark.png')} alt="" />
-          <strong><span>AI</span> Catlyst</strong>
+          <img src={assetPath('ai-catlyst-mark.png')} alt="AI Catlyst" />
         </a>
         <nav aria-label="AI Catlyst navigation">
           <button type="button" onClick={() => scrollToSection('aic-solutions')}>Solutions</button>
@@ -191,7 +190,7 @@ function AICatlystPage() {
         <button className="aic-menu-button" type="button" aria-label="Open AI Catlyst menu" onClick={() => setMenuOpen(true)}><Menu size={21} /></button>
         {menuOpen && <div className="aic-mobile-menu">
           <button type="button" aria-label="Close AI Catlyst menu" onClick={() => setMenuOpen(false)}><X size={21} /></button>
-          <a className="aic-header-brand" href="#ai-catlyst" onClick={() => setMenuOpen(false)}><img src={assetPath('ai-catlyst-mark.png')} alt="" /><strong><span>AI</span> Catlyst</strong></a>
+          <a className="aic-header-brand" href="#ai-catlyst" onClick={() => setMenuOpen(false)}><img src={assetPath('ai-catlyst-mark.png')} alt="AI Catlyst" /></a>
           <button type="button" onClick={() => { scrollToSection('aic-solutions'); setMenuOpen(false) }}>Solutions</button>
           <button type="button" onClick={() => { scrollToSection('aic-contact'); setMenuOpen(false) }}>Assessment</button>
           <a href="#home">KMC Group</a>
