@@ -24,6 +24,7 @@ import {
 import './AICatlystPage.css'
 
 const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`
+const aiCatlystMark = 'ai-catlyst-mark.png'
 const assessmentEmail = 'mailto:khalid@aicatlyst.com?subject=AI%20Catlyst%20Expert%20Assessment%20Request'
 
 const triad = [
@@ -148,7 +149,7 @@ function AICatlystPage() {
     const metadata = [
       ['meta', 'property', 'og:title', 'AI Catlyst | Applied AI and Business Transformation'],
       ['meta', 'property', 'og:description', 'AI Catlyst combines commercial strategy, transformation expertise and applied AI to help organisations improve efficiency, resilience and profitable growth.'],
-      ['meta', 'property', 'og:image', `${window.location.origin}${assetPath('ai-catlyst-logo.png')}`],
+      ['meta', 'property', 'og:image', `${window.location.origin}${assetPath(aiCatlystMark)}`],
       ['meta', 'name', 'twitter:card', 'summary_large_image'],
       ['link', 'rel', 'canonical', `${window.location.origin}/ai-catlyst/`],
     ]
@@ -179,7 +180,7 @@ function AICatlystPage() {
       <motion.div className="aic-scroll-progress" style={{ scaleX: progressScale }} aria-hidden="true" />
       <header className="aic-header">
         <a className="aic-header-brand" href="#ai-catlyst" aria-label="AI Catlyst home">
-          <img src={assetPath('ai-catlyst-mark.png')} alt="AI Catlyst" />
+          <img src={assetPath(aiCatlystMark)} alt="AI Catlyst" />
         </a>
         <nav aria-label="AI Catlyst navigation">
           <button type="button" onClick={() => scrollToSection('aic-solutions')}>Solutions</button>
@@ -190,7 +191,7 @@ function AICatlystPage() {
         <button className="aic-menu-button" type="button" aria-label="Open AI Catlyst menu" onClick={() => setMenuOpen(true)}><Menu size={21} /></button>
         {menuOpen && <div className="aic-mobile-menu">
           <button type="button" aria-label="Close AI Catlyst menu" onClick={() => setMenuOpen(false)}><X size={21} /></button>
-          <a className="aic-header-brand" href="#ai-catlyst" onClick={() => setMenuOpen(false)}><img src={assetPath('ai-catlyst-mark.png')} alt="AI Catlyst" /></a>
+          <a className="aic-header-brand" href="#ai-catlyst" onClick={() => setMenuOpen(false)}><img src={assetPath(aiCatlystMark)} alt="AI Catlyst" /></a>
           <button type="button" onClick={() => { scrollToSection('aic-solutions'); setMenuOpen(false) }}>Solutions</button>
           <button type="button" onClick={() => { scrollToSection('aic-contact'); setMenuOpen(false) }}>Assessment</button>
           <a href="#home">KMC Group</a>

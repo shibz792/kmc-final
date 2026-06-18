@@ -500,6 +500,7 @@ const navGroups = [
   { label: 'Services', href: '#services', children: services.map((item) => ({ label: item.title, href: `#service-${item.slug}` })) },
   { label: 'Industries', href: '#industries', children: industries.map((item) => ({ label: item.title, href: `#industry-${item.slug}` })) },
   { label: 'AI Catlyst', href: '#ai-catlyst' },
+  { label: 'Case Studies', href: '#case-studies' },
   { label: 'About', href: '#about' },
   { label: 'Insights', href: '#insights' },
 ]
@@ -550,6 +551,7 @@ function RouteMeta({ route }) {
       'ai-first': 'AI Strategy and Workflow Readiness | KMC',
       services: 'Transformation Services | Knight’s Move Consulting',
       industries: 'Industry Transformation Advisory | KMC',
+      'case-studies': 'Case Studies and Client Testimonials | KMC',
       about: 'About Knight’s Move Consulting',
       insights: 'ERP, Workflow and AI Insights | KMC',
     }
@@ -558,6 +560,7 @@ function RouteMeta({ route }) {
       'ai-first': 'Assess workflows, system access, data and controls before funding AI tools or pilots.',
       services: 'Choose the right starting point for ERP, CargoWise, AI strategy, digital roadmaps, adoption and specialist delivery.',
       industries: 'Workflow and system transformation advice for logistics, manufacturing, healthcare and financial services.',
+      'case-studies': 'Anonymised case studies and testimonials across healthcare, logistics, trade, ERP, data and digital transformation.',
       about: 'Meet the senior team helping leaders make better system, workflow and transformation decisions.',
       insights: 'Practical guidance for leaders making ERP, CargoWise, AI workflow and adoption decisions.',
     }
@@ -582,6 +585,7 @@ function getPage(route) {
   if (route === 'ai-first') return <AIPage />
   if (route === 'services') return <ServicesHub />
   if (route === 'industries') return <IndustriesHub />
+  if (route === 'case-studies') return <CaseStudiesPage />
   if (route === 'about') return <AboutPage />
   if (route === 'insights') return <InsightsPage />
 
@@ -738,6 +742,7 @@ function HomePage() {
       <CredibilityRail />
       <OperationalStory />
       <OutcomeStory />
+      <TestimonialProof theme="home" />
       <EngagementGroups />
       <LeadershipConversion />
     </EditorialPage>
@@ -807,7 +812,486 @@ function EngagementGroups() {
 }
 
 function LeadershipConversion({ title = 'Senior judgement stays close to the work.' }) {
-  return <section className="op-leadership"><div className="wrapper"><div className="op-leadership-images"><img src={assetPath('khalid-gibran.jpg')} alt="Richard Raj" /><img src={assetPath('mahen-prasad.jpg')} alt="Mahen Prasad" /><img src={assetPath('richard-raj.jpg')} alt="Khalid Gibran" /></div><div><span>Leadership-led delivery</span><h2>{title}</h2><p>Bring the live operating problem. Speak directly with the team that will shape the recommendation and stay accountable for the work.</p><Button href={calendly} external>Discuss your transformation</Button></div></div></section>
+  return <section className="op-leadership"><div className="wrapper"><div className="op-leadership-images"><img src={assetPath('khalid-gibran.jpg')} alt="Khalid Gibran" /><img src={assetPath('mahen-prasad.jpg')} alt="Mahen Prasad" /><img src={assetPath('richard-raj.jpg')} alt="Richard Raj" /></div><div><span>Leadership-led delivery</span><h2>{title}</h2><p>Bring the live operating problem. Speak directly with the team that will shape the recommendation and stay accountable for the work.</p><Button href={calendly} external>Discuss your transformation</Button></div></div></section>
+}
+
+const clientEvidence = [
+  {
+    sector: 'Healthcare',
+    title: 'Enterprise digital and data architecture for a regional healthcare provider.',
+    summary: 'A regional primary healthcare provider needed a practical, executive-ready strategy to move from fragmented applications and manual processes to an integrated digital, data and service ecosystem.',
+    challenge: [
+      'Multiple disconnected systems with no unified view of patient, programme, supplier or staff activity.',
+      'Manual and paper-based processes creating operational inefficiency, errors and key-person dependency.',
+      'Limited visibility into programme KPIs, funding utilisation and patient or whānau needs.',
+      'Immature business continuity, disaster recovery, security and compliance practices across systems.',
+    ],
+    approach: [
+      'KMC developed a two-stage Enterprise Digital and Data Architecture Strategy and transition roadmap.',
+      'The work was structured around three horizons and eight prioritised building blocks, from CRM and case management through to data platform, ERP, portals and interoperability.',
+      'The future state used a layered architecture covering presentation, business logic and data access, supported by master data management and BI.',
+      'Change management was embedded using structured adoption planning, training, stakeholder engagement and continuous improvement loops.',
+    ],
+    delivery: ['Digital strategy', 'Enterprise architecture', 'Data architecture', 'BI dashboards', 'Change management'],
+    outcomes: [
+      'A board-ready strategy and roadmap that gave leadership a phased, cost-aware transformation path.',
+      'A target architecture for a single patient view and stronger longitudinal health data capability.',
+      'A prioritised delivery model that reduced big-bang implementation risk.',
+      'A progressive pathway for BI, automation and AI capability across future horizons.',
+    ],
+    metrics: ['3 horizons', '8 building blocks', '13 domains assessed', 'AI capability pathway'],
+  },
+  {
+    sector: 'Shipping & Logistics',
+    title: 'End-to-end CargoWise implementation for a Pacific shipping operator.',
+    summary: 'A national shipping operator in the Pacific needed to modernise container, agency, forwarding, warehousing and finance operations from manual processes into one integrated CargoWise platform.',
+    challenge: [
+      'Container movements, detention, demurrage and delivery orders were managed through manual processes and disconnected records.',
+      'Partner carrier activity, Brisbane cargo processing and island operations were not connected through a single operational system.',
+      'Financial reconciliation for voyages and agency transactions was labour intensive.',
+      'Users needed a structured uplift from paper-based work to a global shipping ERP.',
+    ],
+    approach: [
+      'KMC structured the engagement in three parts: contract assessment, analysis and design, then implementation and rollout.',
+      'An MVP-first approach brought the highest-value CargoWise modules live first, then extended capability in stages.',
+      'The solution configured container lifecycle tracking, bill of lading workflows, delivery order generation, voyage accounting and operational reporting.',
+      'Training was delivered against real operating scenarios with referenceable documentation and go-live support.',
+    ],
+    delivery: ['CargoWise', 'Liner and agency', 'Container management', 'Finance', 'Training and change'],
+    outcomes: [
+      'CargoWise became the single operating platform for shipping, agency, forwarding, warehousing and finance workflows.',
+      'Delivery orders could be generated digitally from shipment data rather than prepared manually.',
+      'Container inventory, movement, detention and reporting visibility improved across operations.',
+      'The platform created a scalable foundation for future Pacific expansion.',
+    ],
+    metrics: ['MVP-first rollout', '4 core integrations', '7 training sessions', 'Single ERP platform'],
+  },
+  {
+    sector: 'Trade & Investment',
+    title: 'Five-year digital strategy for a multi-country Pacific trade organisation.',
+    summary: 'A Pacific trade and investment organisation needed to respond to COVID-era disruption, fragmented digital platforms and inconsistent processes across multiple country offices.',
+    challenge: [
+      'Country offices had separate websites, CRM practices, document repositories, email domains and manual workflows.',
+      'In-person trade facilitation was disrupted and no consistent digital channel existed to replace it.',
+      'China-specific access and compliance constraints created a unique performance and platform challenge.',
+      'Mobile-first access and shared-service operating principles were not yet embedded.',
+    ],
+    approach: [
+      'KMC completed a current-state and digital maturity assessment across country offices.',
+      'A twelve-principle strategy was developed to guide every platform, process and operating-model decision.',
+      'The roadmap was sequenced into four transition states: unified presence, integrated back office, service refactoring and marketplace enablement.',
+      'The programme plan used agile increments so benefits could be delivered progressively rather than through one large programme.',
+    ],
+    delivery: ['Digital strategy', 'Maturity assessment', 'Target architecture', 'Programme roadmap', 'Change planning'],
+    outcomes: [
+      'A clear One-Organisation strategy for front-office and back-office consolidation.',
+      'A mobile-first, China-aware platform pathway for digital service delivery.',
+      'A shared-services model that clarified where work should sit across country offices.',
+      'A five-year roadmap from basic digital maturity toward integrated omni-channel capability.',
+    ],
+    metrics: ['3 countries', '4 transition states', '12 principles', '5-year roadmap'],
+  },
+  {
+    sector: 'National Programme Delivery',
+    title: 'Affordable ERP and contractor portal pathway for national programme operations.',
+    summary: 'A national programme organisation needed a cost-aware digital pathway for project finance, contractor reporting, document management and automated executive visibility.',
+    challenge: [
+      'The organisation lacked a clear and affordable technology path for its future operating model.',
+      'Operational projects were difficult to manage consistently across national delivery partners.',
+      'Contractor reporting, project documentation and management reporting relied too heavily on manual effort.',
+      'A common ERP and front-end interaction model were needed without over-investing in unnecessary complexity.',
+    ],
+    approach: [
+      'KMC developed the business requirements, grouped them into core system capabilities and designed an affordable target architecture.',
+      'The delivery model combined ERP project and finance management with contractor-facing SharePoint and Power Platform capability.',
+      'Agile sprint delivery, structured testing, training, access management and post-deployment support were built into the programme.',
+      'The future state was linked back to the organisation’s vision, objectives and stakeholder priorities.',
+    ],
+    delivery: ['ERP pathway', 'Requirements', 'Solution architecture', 'Power Platform', 'Training and support'],
+    outcomes: [
+      'A sustainable technology pathway that avoided over-engineered options.',
+      'Automated project and finance tracking for national programme delivery.',
+      'Contractor-facing reporting and document workflows.',
+      'A structured change and training approach for adoption across staff and delivery partners.',
+    ],
+    metrics: ['National delivery', 'ERP automation', 'Contractor portal', 'Agile delivery'],
+  },
+]
+
+const caseStudyFormat = {
+  Healthcare: {
+    client: 'Regional healthcare provider',
+    engagement: 'Enterprise digital and data architecture strategy',
+    duration: 'Multi-horizon roadmap',
+    objective: 'Move from disconnected systems and manual reporting into an integrated data, digital and service ecosystem.',
+    before: 'Fragmented patient, programme, finance and reporting workflows across disconnected systems.',
+    after: 'Board-ready roadmap, target architecture, prioritised delivery horizons and clearer data foundation.',
+    visual: ['Patient view', 'Programme data', 'ERP / HRIS', 'BI dashboards', 'AI pathway'],
+    phases: [
+      ['Discovery', 'Current-state architecture, operational pain, system maturity and reporting gaps.'],
+      ['Design', 'Target enterprise architecture, master data approach and building-block roadmap.'],
+      ['Sequence', 'Three delivery horizons with prioritised initiatives and adoption planning.'],
+      ['Enable', 'BI, interoperability and AI-readiness pathway for future capability.'],
+    ],
+  },
+  'Shipping & Logistics': {
+    client: 'Nauru Shipping Lines',
+    engagement: 'End-to-end CargoWise implementation',
+    duration: 'Contract assessment to go-live',
+    objective: 'Replace manual shipping, agency, forwarding, warehousing and finance work with one CargoWise operating platform.',
+    before: 'Manual container movement, delivery order, voyage accounting and partner-carrier workflows.',
+    after: 'CargoWise configured as the core operating system with digital documents, reporting and trained users.',
+    visual: ['CargoWise', 'Containers', 'BOL / delivery orders', 'Voyage finance', 'Partner data'],
+    phases: [
+      ['Assess', 'Review WiseTech contract, modules, cost exposure and implementation path.'],
+      ['Design', 'Document NSL processes, integrations, reporting needs and MVP scope.'],
+      ['Configure', 'Set up container lifecycle, bills of lading, detention, voyage accounting and reporting.'],
+      ['Adopt', 'Train users with live operating scenarios, go-live support and staged rollout.'],
+    ],
+  },
+  'Trade & Investment': {
+    client: 'Pacific trade and investment organisation',
+    engagement: 'Five-year digital transformation strategy',
+    duration: 'Strategic roadmap',
+    objective: 'Create a practical digital strategy for multi-country operations, China access constraints and disrupted trade facilitation.',
+    before: 'Separate country-office websites, repositories, CRM practices and manual service workflows.',
+    after: 'One-organisation digital strategy, shared-service principles and phased platform roadmap.',
+    visual: ['Country offices', 'Unified web', 'CRM', 'Shared services', 'Marketplace'],
+    phases: [
+      ['Assess', 'Review digital maturity, country-office operations, channels and platform constraints.'],
+      ['Principles', 'Define twelve decision principles for platforms, process and operating model.'],
+      ['Roadmap', 'Sequence four transition states from unified presence to marketplace enablement.'],
+      ['Mobilise', 'Shape agile increments so benefits can be released progressively.'],
+    ],
+  },
+  'National Programme Delivery': {
+    client: 'National programme organisation',
+    engagement: 'ERP, contractor portal and reporting pathway',
+    duration: 'Strategy through delivery support',
+    objective: 'Build an affordable technology pathway for project finance, contractor reporting and executive visibility.',
+    before: 'Manual project tracking, contractor reporting, document handling and management reporting.',
+    after: 'Practical ERP pathway, contractor-facing workflows and automated project/finance visibility.',
+    visual: ['Requirements', 'ERP', 'Contractor portal', 'Power Platform', 'Reporting'],
+    phases: [
+      ['Frame', 'Clarify business requirements, stakeholder priorities and affordability constraints.'],
+      ['Architect', 'Design ERP, SharePoint and Power Platform components around the operating model.'],
+      ['Deliver', 'Plan agile sprints, testing, access, training and controlled deployment.'],
+      ['Support', 'Embed change, warranty support and reporting rhythms after go-live.'],
+    ],
+  },
+}
+
+const testimonials = [
+  {
+    id: 'enterprise-wide',
+    quote: 'Richard played a pivotal role in planning and managing the requirements and delivery of an integrated SAP B2C to SAP S/4 solution. We achieved outstanding results for Mitre 10.',
+    source: 'Mike Lisle',
+    context: 'Enterprise Wide Limited',
+    themes: ['home', 'services', 'erp', 'digital-strategy'],
+  },
+  {
+    id: 'healthcare-strategy',
+    quote: 'KMC played the lead and principal role in transforming our digital landscape plans and strategy. The final outcomes exceeded our expectations.',
+    source: 'Mark Croker',
+    context: 'Chief Operations Officer',
+    themes: ['home', 'strategy', 'ai-strategy', 'digital-strategy', 'healthcare'],
+  },
+  {
+    id: 'healthcare-data',
+    quote: 'Richard and the KMC team contributed to the development of our organisational data and digital strategy. Their understanding of healthcare systems provided valuable insights.',
+    source: 'Keming Wang',
+    context: 'Data & Digital Lead',
+    themes: ['strategy', 'ai-strategy', 'digital-strategy', 'healthcare'],
+  },
+  {
+    id: 'nsl-cargowise',
+    quote: 'KMC project managed the whole delivery from strategy, development, deployment and change management for our CargoWise ERP implementation.',
+    source: 'Management',
+    context: 'Nauru Shipping Lines',
+    themes: ['home', 'services', 'supply-chain', 'erp', 'logistics'],
+  },
+  {
+    id: 'pti-china',
+    quote: 'With the complexities involved in operationalising the strategy in China, Richard provided options that could work for us within the timeframe and budget.',
+    source: 'Mona Mato',
+    context: 'Trade Commissioner to China',
+    themes: ['strategy', 'digital-strategy', 'borderless-resourcing'],
+  },
+  {
+    id: 'microsoft-platform',
+    quote: 'KMC took the time to understand our company and kept coming up with creative ways to meet our needs within budget.',
+    source: 'Melissa',
+    context: 'Microsoft Business Central, SharePoint and Power Platform programme',
+    themes: ['services', 'erp', 'ocm', 'digital-strategy'],
+  },
+  {
+    id: 'business-central',
+    quote: 'Their agile thinking led to a solution design that was cost effective and user friendly. Through change management support we seamlessly integrated the system into our way of working.',
+    source: 'Olivia',
+    context: 'Microsoft Business Central and Power Platform client',
+    themes: ['services', 'erp', 'ocm', 'borderless-resourcing'],
+  },
+  {
+    id: 'fintech-advisory',
+    quote: 'Richard’s advice helped us build our business model and shape our go-to-market strategy. His experience in IT transformation is broad and insightful.',
+    source: 'Viet Nguyen',
+    context: 'CA, Accounting 247 Limited',
+    themes: ['home', 'strategy', 'finance'],
+  },
+]
+
+function getTestimonialsForTheme(theme = 'home', limit = 6) {
+  const selected = testimonials.filter((item) => item.themes?.includes(theme))
+  return (selected.length ? selected : testimonials).slice(0, limit)
+}
+
+function getVisibleTestimonials(items, active, count) {
+  return Array.from({ length: Math.min(count, items.length) }, (_, offset) => items[(active + offset) % items.length])
+}
+
+function TestimonialProof({ theme = 'home', title = 'Client feedback from comparable work.', text = 'Direct feedback from leaders who trusted KMC with complex transformation work.' }) {
+  const selected = getTestimonialsForTheme(theme)
+  const [active, setActive] = useState(0)
+  const reduceMotion = useReducedMotion()
+  const visible = getVisibleTestimonials(selected, active, 3)
+
+  useEffect(() => {
+    if (reduceMotion || selected.length < 2) return undefined
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % selected.length)
+    }, 4200)
+    return () => window.clearInterval(timer)
+  }, [reduceMotion, selected.length])
+
+  const move = (direction) => setActive((current) => (current + direction + selected.length) % selected.length)
+
+  return (
+    <section className="testimonial-proof" aria-label="Client testimonials">
+      <div className="wrapper">
+        <div className="testimonial-proof-head">
+          <span>Client voice</span>
+          <h2>{title}</h2>
+          <p>{text}</p>
+          <a href="#case-studies">View case studies <ArrowRight size={15} /></a>
+        </div>
+        <div className="testimonial-rail-wrap">
+          <div className="testimonial-list" aria-live="polite">
+            {visible.map((item, index) => (
+              <motion.blockquote
+                className="testimonial-card"
+                key={`${item.id}-${active}`}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.34, ease }}
+              >
+                <span>{String(((active + index) % selected.length) + 1).padStart(2, '0')}</span>
+                <p>“{item.quote}”</p>
+                <cite>{item.source}<small>{item.context}</small></cite>
+              </motion.blockquote>
+            ))}
+          </div>
+          {selected.length > 1 && (
+            <div className="testimonial-rail-controls">
+              <button type="button" onClick={() => move(-1)} aria-label="Previous testimonials">Prev</button>
+              <div>
+                {selected.map((item, index) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={active === index ? 'is-active' : ''}
+                    onClick={() => setActive(index)}
+                    aria-label={`Show testimonial set starting with ${index + 1}`}
+                    aria-current={active === index ? 'true' : undefined}
+                  />
+                ))}
+              </div>
+              <button type="button" onClick={() => move(1)} aria-label="Next testimonials">Next</button>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function CaseStudiesPage() {
+  return (
+    <EditorialPage>
+      <EditorialHero compact index="Case studies / Client evidence" eyebrow="Sanitised delivery examples" title="Real transformation work, shown without exposing client-sensitive detail." text="These case studies follow an industry format: operating challenge, KMC approach, delivery scope and outcomes. Sensitive names, internal team details, screenshots and unnecessary commercial specifics have been removed where appropriate." primary="Discuss a similar challenge" secondary="Read testimonials" secondaryHref="#testimonials" statement="Healthcare, logistics, trade, ERP, data and programme delivery evidence." />
+      <ClientEvidence />
+      <TestimonialsSection />
+      <LeadershipConversion title="Bring the operating problem. We will show the relevant proof." />
+    </EditorialPage>
+  )
+}
+
+function ClientEvidence() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const activeStudy = clientEvidence[activeIndex]
+  const format = caseStudyFormat[activeStudy.sector]
+
+  return (
+    <section className="client-evidence" id="case-study-list">
+      <div className="wrapper">
+        <div className="client-evidence-head">
+          <span>Case studies</span>
+          <h2>Explore the work as a proper transformation story.</h2>
+          <p>Select a case study to see the client context, challenge, delivery path, implementation phases, outcomes and the operating capability created.</p>
+        </div>
+        <div className="case-study-lab">
+          <div className="case-study-tabs" role="tablist" aria-label="Case study selector">
+            {clientEvidence.map((study, index) => (
+              <button
+                key={study.sector}
+                type="button"
+                role="tab"
+                aria-selected={activeIndex === index}
+                className={activeIndex === index ? 'is-active' : ''}
+                onClick={() => setActiveIndex(index)}
+              >
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <strong>{study.sector}</strong>
+                <small>{caseStudyFormat[study.sector].engagement}</small>
+              </button>
+            ))}
+          </div>
+
+          <motion.article
+            key={activeStudy.title}
+            className="case-study-reader"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.48, ease }}
+          >
+            <aside className="case-snapshot">
+              <span>Executive snapshot</span>
+              <h3>{activeStudy.sector}</h3>
+              <dl>
+                <div><dt>Client</dt><dd>{format.client}</dd></div>
+                <div><dt>Engagement</dt><dd>{format.engagement}</dd></div>
+                <div><dt>Duration</dt><dd>{format.duration}</dd></div>
+                <div><dt>Objective</dt><dd>{format.objective}</dd></div>
+              </dl>
+              <div className="case-metrics">{activeStudy.metrics.map((metric) => <b key={metric}>{metric}</b>)}</div>
+            </aside>
+
+            <div className="case-study-main">
+              <div className="case-study-title">
+                <div>
+                  <span>Case study format</span>
+                  <h3>{activeStudy.title}</h3>
+                </div>
+                <p>{activeStudy.summary}</p>
+              </div>
+
+              <div className="case-before-after">
+                <div>
+                  <span>Before</span>
+                  <p>{format.before}</p>
+                </div>
+                <div className="case-arrow" aria-hidden="true"><i /><ArrowRight size={21} /></div>
+                <div>
+                  <span>After</span>
+                  <p>{format.after}</p>
+                </div>
+              </div>
+
+              <div className="case-visual-story" aria-label={`${activeStudy.sector} solution visual`}>
+                {format.visual.map((node, index) => (
+                  <motion.div key={node} initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: index * 0.06, duration: 0.35, ease }}>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{node}</strong>
+                    <i />
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="case-phase-map">
+                {format.phases.map(([phase, detail], index) => (
+                  <motion.div key={phase} initial={{ opacity: 0, x: -14 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.08, duration: 0.38, ease }}>
+                    <span>{phase}</span>
+                    <p>{detail}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="case-study-columns">
+                <div><span>1. Challenge</span>{activeStudy.challenge.map((item) => <p key={item}>{item}</p>)}</div>
+                <div><span>2. KMC solution</span>{activeStudy.approach.map((item) => <p key={item}>{item}</p>)}</div>
+                <div><span>3. Outcomes</span>{activeStudy.outcomes.map((item) => <p key={item}>{item}</p>)}</div>
+              </div>
+
+              <footer>
+                <span>Capability delivered</span>
+                <div>{activeStudy.delivery.map((item) => <strong key={item}>{item}</strong>)}</div>
+              </footer>
+            </div>
+          </motion.article>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function TestimonialsSection() {
+  const [active, setActive] = useState(0)
+  const reduceMotion = useReducedMotion()
+  const visible = getVisibleTestimonials(testimonials, active, 4)
+
+  useEffect(() => {
+    if (reduceMotion || testimonials.length < 2) return undefined
+    const timer = window.setInterval(() => {
+      setActive((current) => (current + 1) % testimonials.length)
+    }, 4600)
+    return () => window.clearInterval(timer)
+  }, [reduceMotion])
+
+  const move = (direction) => setActive((current) => (current + direction + testimonials.length) % testimonials.length)
+
+  return (
+    <section className="client-testimonials" id="testimonials">
+      <div className="wrapper">
+        <div className="client-evidence-head">
+          <span>Testimonials</span>
+          <h2>What clients say about the way KMC works.</h2>
+          <p>Clients trust KMC for clear thinking, practical delivery leadership and the ability to turn complex transformation work into measurable progress.</p>
+        </div>
+        <div className="testimonial-rail-wrap">
+          <div className="testimonial-list testimonial-list-light" aria-live="polite">
+            {visible.map((item, index) => (
+              <motion.blockquote
+                className="testimonial-card"
+                key={`${item.id}-${active}`}
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.04, duration: 0.34, ease }}
+              >
+                <span>{String(((active + index) % testimonials.length) + 1).padStart(2, '0')}</span>
+                <p>“{item.quote}”</p>
+                <cite>{item.source}<small>{item.context}</small></cite>
+              </motion.blockquote>
+            ))}
+          </div>
+          <div className="testimonial-rail-controls testimonial-rail-controls-light">
+            <button type="button" onClick={() => move(-1)} aria-label="Previous testimonials">Prev</button>
+            <div>
+              {testimonials.map((item, index) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  className={active === index ? 'is-active' : ''}
+                  onClick={() => setActive(index)}
+                  aria-label={`Show testimonial set starting with ${index + 1}`}
+                  aria-current={active === index ? 'true' : undefined}
+                />
+              ))}
+            </div>
+            <button type="button" onClick={() => move(1)} aria-label="Next testimonials">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 function EditorialTicker({ items }) {
@@ -907,7 +1391,7 @@ function LeadershipFeature() {
     <section className="ed-section ed-ink ed-leadership-feature">
       <div className="wrapper">
         <div><span>06 / Leadership</span><h2>Senior judgement stays close to the work.</h2><p>KMC combines executive transformation leadership, operational systems depth and commercial relationship building.</p><a href="#about">Meet the leadership team <ArrowRight size={16} /></a></div>
-        <div className="ed-portrait-strip"><img src={assetPath('khalid-gibran.jpg')} alt="Richard Raj" /><img src={assetPath('mahen-prasad.jpg')} alt="Mahen Prasad" /><img src={assetPath('richard-raj.jpg')} alt="Khalid Gibran" /></div>
+        <div className="ed-portrait-strip"><img src={assetPath('khalid-gibran.jpg')} alt="Khalid Gibran" /><img src={assetPath('mahen-prasad.jpg')} alt="Mahen Prasad" /><img src={assetPath('richard-raj.jpg')} alt="Richard Raj" /></div>
       </div>
     </section>
   )
@@ -1014,7 +1498,7 @@ function IndustryDecision({ industry }) {
 }
 
 function LeadershipContact() {
-  return <section className="ed-leader-contact"><div className="wrapper"><div><span>Direct access</span><h2>Speak with the people who will shape the work.</h2><p>No sales handoff. Bring the live decision and get a senior, independent view of the risk and the next useful move.</p><Button href={calendly} external>Start with the leadership team</Button></div><div className="ed-leader-names"><span>Founder and Managing Director</span><strong>Richard Raj</strong><span>General Manager</span><strong>Mahen Prasad</strong><span>Business Development Director</span><strong>Khalid Gibran</strong></div></div></section>
+  return <section className="ed-leader-contact"><div className="wrapper"><div><span>Direct access</span><h2>Speak with the people who will shape the work.</h2><p>No sales handoff. Bring the live decision and get a senior, independent view of the risk and the next useful move.</p><Button href={calendly} external>Start with the leadership team</Button></div><div className="ed-leader-names"><span>Founder and Board Chairman</span><strong>Richard Raj</strong><span>General Manager</span><strong>Mahen Prasad</strong><span>Director Partnerships</span><strong>Khalid Gibran</strong></div></div></section>
 }
 
 const heroVisuals = {
@@ -1339,13 +1823,13 @@ function LeadershipPanel() {
   const people = [
     {
       name: 'Richard Raj',
-      role: 'Founder and Managing Director',
+      role: 'Founder and Board Chairman',
       image: 'khalid-gibran.jpg',
       bio: [
-        'Richard Raj is an executive technology leader and the founder of Knight’s Move Consulting, bringing more than two decades of experience in digital strategy, technology governance, programme leadership, and large-scale business transformation.',
-        'Richard established KMC to make high-quality transformation expertise accessible to organisations of all sizes. He works with boards, executives, and senior leadership teams to simplify complex challenges, develop practical strategies, improve technology delivery, and successfully lead organisational change.',
-        'His expertise includes digital transformation, IT strategy, portfolio governance, operating models, programme management, Agile and Lean delivery, DevOps, and executive advisory. Richard’s leadership approach combines strategic thinking with hands-on implementation, ensuring that transformation initiatives deliver measurable business value rather than technology alone.',
-        'Through KMC, Richard is committed to helping organisations reduce waste, strengthen delivery capability, and respond confidently to digital disruption. He is known for his collaborative leadership style, practical problem-solving, and ability to align people, processes, and technology around a clear business vision.',
+        'Richard Raj is the founder of Knight’s Move Consulting and now serves as Founder and Board Chairman after more than two decades in digital strategy, technology governance, programme leadership, and large-scale business transformation.',
+        'Having established KMC to make high-quality transformation expertise accessible to organisations of all sizes, Richard has stepped back into a board chair role while the leadership team leads the charge on working directly with customers.',
+        'Richard continues to provide strategic oversight across digital transformation, IT strategy, portfolio governance, operating models, programme management, Agile and Lean delivery, DevOps, and executive advisory.',
+        'His board role helps KMC maintain clear standards for practical problem-solving, delivery quality, and the alignment of people, processes, and technology around measurable business value.',
       ],
     },
     {
@@ -1361,11 +1845,11 @@ function LeadershipPanel() {
     },
     {
       name: 'Khalid Gibran',
-      role: 'Business Development Director',
+      role: 'Director Partnerships',
       image: 'richard-raj.jpg',
       bio: [
         'Khalid Gibran is an experienced entrepreneur, business transformation specialist, and growth advisor with a strong track record across New Zealand, Australia, Asia, the United Kingdom, and the Middle East.',
-        'As Business Development Director of Knight’s Move Consulting, Khalid is responsible for building strategic relationships, identifying new market opportunities, and connecting organisations with practical solutions that improve performance, efficiency, and long-term growth.',
+        'As Director Partnerships of Knight’s Move Consulting, Khalid is responsible for building strategic relationships, identifying new market opportunities, and connecting organisations with practical solutions that improve performance, efficiency, and long-term growth.',
         'His experience spans business development, sales, customer engagement, retail partnerships, digital transformation, emerging technologies, and market expansion. Over the course of his career, Khalid has established and supported business ventures across multiple international markets and worked with major retailers and commercial partners throughout the Asia-Pacific region.',
         'Khalid is passionate about helping organisations streamline operations, adopt suitable technologies, and achieve measurable returns from transformation initiatives. He combines commercial insight, an extensive business network, and an entrepreneurial approach to create partnerships that deliver value for clients and support the continued growth of Knight’s Move Consulting.',
       ],
@@ -1854,7 +2338,7 @@ function Footer() {
         </div>
         <FooterColumn title="Services" items={services.map((item) => [item.title, `#service-${item.slug}`])} />
         <FooterColumn title="Industries" items={industries.map((item) => [item.title, `#industry-${item.slug}`])} />
-        <FooterColumn title="Company" items={[['AI Catlyst', '#ai-catlyst'], ['About', '#about'], ['Insights', '#insights'], ['AI Strategy', '#ai-first']]} />
+        <FooterColumn title="Company" items={[['AI Catlyst', '#ai-catlyst'], ['Case Studies', '#case-studies'], ['About', '#about'], ['Insights', '#insights'], ['AI Strategy', '#ai-first']]} />
       </div>
       <div className="wrapper footer-bottom">
         <span>© 2026 Knight's Move Consulting Ltd.</span>
