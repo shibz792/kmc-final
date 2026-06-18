@@ -24,7 +24,7 @@ import {
 import './AICatlystPage.css'
 
 const assetPath = (path) => `${import.meta.env.BASE_URL}${path}`
-const aiCatlystMark = 'ai-catlyst-mark.png'
+const aiCatlystMark = 'aicatlyst-long.png'
 const assessmentEmail = 'mailto:khalid@aicatlyst.com?subject=AI%20Catlyst%20Expert%20Assessment%20Request'
 
 const triad = [
